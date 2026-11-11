@@ -28,3 +28,7 @@ These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM)
 - `/thankyou?src=speed&pid=test1` in Google Tag Assistant: exactly one conversion event; reload = none; no `src` = none.
 - TidyCal calendar (`mandeep2/adcomp-discovery-call`) loads on `/thankyou` (a fallback link sits under it).
 - In Google Ads → Conversions, status becomes "Recording conversions".
+
+
+## Score check
+The live score check calls `GET /pagespeed` on the audit worker (`docs/audit-worker-with-pagespeed.js`). Add the secret `PAGESPEED_API_KEY` to that worker. This Cloudflare project is static-assets-only, so it cannot hold variables.
