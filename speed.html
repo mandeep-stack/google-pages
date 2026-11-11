@@ -894,7 +894,7 @@ html,body{margin:0;padding:0;background:#F7F6F3}
     try {
       // Cloudflare Pages Function — keeps the PageSpeed API key server-side.
       // See /functions/api/pagespeed.js
-      var res  = await fetch('https://speed.adcomp.xyz/api/pagespeed?url=' + encodeURIComponent(url));
+      var res  = await fetch('/api/pagespeed?url=' + encodeURIComponent(url));
       var data = await res.json();
       if(data.error) throw new Error(data.error);
 
