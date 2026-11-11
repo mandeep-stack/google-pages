@@ -437,6 +437,12 @@ html,body{margin:0;padding:0;background:#F7F6F3}
 #adcomp-ws .aw-cs-ir:empty{display:none}
 #adcomp-ws .aw-cs-now{display:none;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--ink3)}
 #adcomp-ws .aw-cs-item[aria-current="true"] .aw-cs-now{display:block}
+
+/* sticky bar: two buttons (proof + pay) */
+#adcomp-ws .aw-sticky-cta{gap:10px}
+#adcomp-ws .aw-sticky-cta a{flex:1 1 0;max-width:280px;width:auto;text-align:center;padding:12px 10px}
+#adcomp-ws .aw-sticky-cta .aw-sticky-alt{background:transparent;color:#fff;border:1px solid rgba(255,255,255,.4)}
+#adcomp-ws .aw-sticky-cta .aw-sticky-alt.aw-hide{display:none}
 </style>
 </head>
 <body>
@@ -710,7 +716,8 @@ html,body{margin:0;padding:0;background:#F7F6F3}
 <div class="aw-sticky-spacer"></div>
 
 <div class="aw-sticky-cta">
-  <a href="https://rzp.io/rzp/webaudit" onclick="return awOpenAuditForm(event)">Book Audit Call — ₹199 →</a>
+  <a href="#aw-proof" class="aw-sticky-alt" id="awStickyProof">Will it work for me?</a>
+  <a href="https://rzp.io/rzp/webaudit" class="aw-sticky-pay" onclick="return awOpenAuditForm(event)">Book Audit — ₹199 &rarr;</a>
 </div>
 
 <!-- EMAIL MODAL -->
@@ -1161,12 +1168,23 @@ html,body{margin:0;padding:0;background:#F7F6F3}
   show(0, false);
 
   /* "Will it work for my site?" button: scroll to this section */
-  var link = $('awProofLink');
-  if(link) link.addEventListener('click', function(){
+  function goProof(e){
+    if(e && e.preventDefault) e.preventDefault();
     var t = $('aw-proof'); if(!t) return;
     var rm = window.matchMedia && matchMedia('(prefers-reduced-motion:reduce)').matches;
     t.scrollIntoView({ behavior: rm ? 'auto' : 'smooth', block:'start' });
+  }
+  ['awProofLink','awStickyProof'].forEach(function(id){
+    var el = $(id); if(el) el.addEventListener('click', goProof);
   });
+
+  /* hide the sticky "Will it work for me?" button while the case studies are on screen */
+  var alt = $('awStickyProof'), sec = $('aw-proof');
+  if(alt && sec && 'IntersectionObserver' in window){
+    new IntersectionObserver(function(en){
+      alt.classList.toggle('aw-hide', en[0].isIntersecting);
+    }, { threshold:.15 }).observe(sec);
+  }
 })();
 </script>
 </body>
