@@ -57,7 +57,7 @@
   h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:10px}
   p.lead{color:#b6c2d9;font-size:16px;margin-bottom:24px}
   .cal{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px}
-  .cal iframe{width:100%;height:720px;border:0;display:block}
+  .cal{min-height:420px}
   .alt{font-size:14px;color:#8fa0bd}
   .alt a{color:#7cc4ff}
 </style>
@@ -70,9 +70,10 @@
   <p class="lead">Choose a slot below. You'll get a confirmation by email as soon as you book.</p>
 
   <div class="cal">
-    <iframe src="https://adcomp.neetocal.com/goadcomp" title="Book your call" loading="lazy"></iframe>
+    <div class="tidycal-embed" data-path="mandeep2/adcomp-discovery-call"></div>
   </div>
-  <p class="alt">Calendar not loading? <a href="https://adcomp.neetocal.com/goadcomp" target="_blank" rel="noopener">Open the booking page</a>.</p>
+  <script src="https://asset-tidycal.b-cdn.net/js/embed.js" async></script>
+  <p class="alt">Calendar not loading? <a href="https://tidycal.com/mandeep2/adcomp-discovery-call" target="_blank" rel="noopener">Open the booking page</a>.</p>
 </div>
 </body>
 </html>

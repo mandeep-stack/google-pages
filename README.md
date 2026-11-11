@@ -26,5 +26,5 @@ These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM)
 ## Test (before spending)
 - `/speed`: check score → open the ₹199 popup → pay with a test payment → lands on `/thankyou?src=speed&pid=…`.
 - `/thankyou?src=speed&pid=test1` in Google Tag Assistant: exactly one conversion event; reload = none; no `src` = none.
-- Calendar iframe loads on `/thankyou` (fallback link is under it if NeetoCal blocks framing).
+- TidyCal calendar (`mandeep2/adcomp-discovery-call`) loads on `/thankyou` (a fallback link sits under it).
 - In Google Ads → Conversions, status becomes "Recording conversions".
