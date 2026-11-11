@@ -6,7 +6,7 @@ One campaign, two ad groups, one conversion (the thank-you page).
 |---|---|---|---|
 | `/speed` | `speed.html` | Speed | Successful ₹199 payment → `/thankyou?src=speed&pid=…` (value 199) |
 | `/pixel` | `pixel.html` | Pixel | Successful ₹99 payment → `/thankyou?src=pixel` (value 99) |
-| `/thankyou` | `thankyou.html` | — | Fires the single Google Ads conversion + NeetoCal booking embed |
+| `/thankyou` | `thankyou.html` | — | Fires the single Google Ads conversion + TidyCal booking embed |
 
 These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM).
 
