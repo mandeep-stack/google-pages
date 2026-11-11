@@ -13,7 +13,7 @@ These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM)
 ## Before going live
 1. **Google Ads IDs** — done: tag `AW-319782139`, conversion label `UpmeCNG0r7YdEPv5vZgB` (in all 3 pages).
 2. **Pixel payment link** — create a NEW Razorpay payment page for the Google copy, with post-payment redirect
-   `https://lp.adcomp.xyz/thankyou?src=pixel`, and set it as `PAY_URL` in `pixel.html`. Don't edit the Meta one.
+   `https://lp.adcomp.xyz/thankyou?src=pixel`, and set as `PAY_URL` in `pixel.html` (done: `https://rzp.io/rzp/google-pixel`).
 3. **audit-worker** — apply `docs/audit-worker-google-source.patch` to `adcomp-speed-funnel/audit-worker/worker.js`
    and redeploy `adcomp-audit-worker`. It (a) allows `https://lp.adcomp.xyz` through CORS and (b) stops Google-sourced
    payments being sent to Meta as Purchases.
