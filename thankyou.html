@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Payment received — book your call | AdComp</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Google Ads tag. Replace AW-XXXXXXXXX with your real Google Ads tag ID. -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-XXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  gtag('js', new Date());
+  gtag('config', 'AW-XXXXXXXXX');
+</script>
+
+<!-- THE ONE CONVERSION. Fires once per payment, for both /speed (src=speed) and
+     /pixel (src=pixel). Replace YOUR_LABEL with the label of the conversion action. -->
+<script>
+(function(){
+  var SEND_TO = 'AW-XXXXXXXXX/YOUR_LABEL';
+  var VALUES  = { speed: 199, pixel: 99 };   // INR, matches each offer's price
+
+  var p   = new URLSearchParams(location.search);
+  var src = p.get('src');
+  if (!Object.prototype.hasOwnProperty.call(VALUES, src)) return;   // direct visit: no conversion
+
+  // speed passes pid; Razorpay pages may append razorpay_payment_id for pixel
+  var pid = p.get('pid') || p.get('razorpay_payment_id') || '';
+  if (src === 'speed' && !pid) return;   // speed always has a payment id after a real payment
+  var txn = pid || ('pixel-' + Date.now());
+
+  // Fire once per payment even if the page is reloaded or reopened
+  var key = 'gads_conv_' + (pid || src);
+  try { if (localStorage.getItem(key)) return; localStorage.setItem(key, '1'); } catch(e) {}
+
+  gtag('event', 'conversion', {
+    send_to: SEND_TO,
+    value: VALUES[src],
+    currency: 'INR',
+    transaction_id: txn
+  });
+})();
+</script>
+
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Plus Jakarta Sans',system-ui,sans-serif;background:#0b1220;color:#e8edf7;line-height:1.5;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:760px;margin:0 auto;padding:32px 18px 56px}
+  .brand{font-weight:800;font-size:18px;margin-bottom:28px}
+  .brand span{font-weight:500;color:#8fa0bd}
+  .tick{width:56px;height:56px;border-radius:50%;background:#16a34a;display:grid;place-items:center;font-size:30px;margin-bottom:16px}
+  h1{font-size:28px;font-weight:800;line-height:1.2;margin-bottom:10px}
+  p.lead{color:#b6c2d9;font-size:16px;margin-bottom:24px}
+  .cal{background:#fff;border-radius:14px;overflow:hidden;margin-bottom:14px}
+  .cal iframe{width:100%;height:720px;border:0;display:block}
+  .alt{font-size:14px;color:#8fa0bd}
+  .alt a{color:#7cc4ff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="brand">AdComp<span> Digital Studio</span></div>
+  <div class="tick" aria-hidden="true">✓</div>
+  <h1>Payment received. Now pick a time for your call.</h1>
+  <p class="lead">Choose a slot below. You'll get a confirmation by email as soon as you book.</p>
+
+  <div class="cal">
+    <iframe src="https://adcomp.neetocal.com/goadcomp" title="Book your call" loading="lazy"></iframe>
+  </div>
+  <p class="alt">Calendar not loading? <a href="https://adcomp.neetocal.com/goadcomp" target="_blank" rel="noopener">Open the booking page</a>.</p>
+</div>
+</body>
+</html>

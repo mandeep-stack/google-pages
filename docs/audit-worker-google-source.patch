@@ -1,0 +1,25 @@
+--- a/audit-worker/worker.js	2026-11-11 14:21:14.205696107 +0000
++++ b/audit-worker/worker.js	2026-11-11 14:21:14.219259726 +0000
+@@ -28,7 +28,7 @@
+ //   intercept or conflict with any other Worker or Pages project.
+ 
+ // Both the WordPress page and the Cloudflare Pages subdomain call this Worker.
+-const ALLOWED_ORIGINS = ['https://adcomp.xyz', 'https://speed.adcomp.xyz'];
++const ALLOWED_ORIGINS = ['https://adcomp.xyz', 'https://speed.adcomp.xyz', 'https://go.adcomp.xyz'];
+ const WC_SITE_URL = 'https://adcomp.xyz';
+ const AUDIT_PRODUCT_ID = 996;
+ 
+@@ -246,8 +246,11 @@
+   // Payment is proven real: send the Purchase to Meta in the background.
+   // waitUntil keeps it off the response path, so it can never slow down or
+   // break the customer's redirect.
+-  const metaTask = sendMetaPurchase(env, request, body, rzpOrderId, rzpPaymentId, wcOrderId);
+-  if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(metaTask);
++  // Payments that came from the Google Ads copy (go.adcomp.xyz) must NOT be reported to Meta.
++  if (body.source !== 'google') {
++    const metaTask = sendMetaPurchase(env, request, body, rzpOrderId, rzpPaymentId, wcOrderId);
++    if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(metaTask);
++  }
+ 
+   // ── Mark the WooCommerce order paid ─────────────────────────────
+   try {
