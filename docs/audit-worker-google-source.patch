@@ -5,7 +5,7 @@
  
  // Both the WordPress page and the Cloudflare Pages subdomain call this Worker.
 -const ALLOWED_ORIGINS = ['https://adcomp.xyz', 'https://speed.adcomp.xyz'];
-+const ALLOWED_ORIGINS = ['https://adcomp.xyz', 'https://speed.adcomp.xyz', 'https://go.adcomp.xyz'];
++const ALLOWED_ORIGINS = ['https://adcomp.xyz', 'https://speed.adcomp.xyz', 'https://lp.adcomp.xyz'];
  const WC_SITE_URL = 'https://adcomp.xyz';
  const AUDIT_PRODUCT_ID = 996;
  
@@ -15,7 +15,7 @@
    // break the customer's redirect.
 -  const metaTask = sendMetaPurchase(env, request, body, rzpOrderId, rzpPaymentId, wcOrderId);
 -  if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(metaTask);
-+  // Payments that came from the Google Ads copy (go.adcomp.xyz) must NOT be reported to Meta.
++  // Payments that came from the Google Ads copy (lp.adcomp.xyz) must NOT be reported to Meta.
 +  if (body.source !== 'google') {
 +    const metaTask = sendMetaPurchase(env, request, body, rzpOrderId, rzpPaymentId, wcOrderId);
 +    if (ctx && typeof ctx.waitUntil === 'function') ctx.waitUntil(metaTask);
