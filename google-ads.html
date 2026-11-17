@@ -620,6 +620,16 @@
     try{ gtag('event', 'google_ads_basic_info'); }catch(e){}
   }
 
+  // Meeting booked in Cal embed -> Google Ads conversion + book_discovery_call event (no GTM, no Meta)
+  var BOOKED_SEND_TO = 'AW-319782139/REPLACE_WITH_BOOKED_CONVERSION_LABEL';
+  function fireBooked(){
+    if(window.__bookedFired) return;
+    window.__bookedFired = true;
+    try{ gtag('event', 'book_discovery_call', { variant: 'google-ads' }); }catch(e){}
+    if(BOOKED_SEND_TO.indexOf('REPLACE_') > -1) return;
+    try{ gtag('event', 'conversion', { send_to: BOOKED_SEND_TO }); }catch(e){}
+  }
+
   window.acfNext = function(){
     if(animating) return;
     var err = validate(cur);
@@ -755,6 +765,7 @@
       (typeof d === 'string' && d.indexOf('booking') > -1 && d.indexOf('confirm') > -1)
     );
     if(isBooked){
+      fireBooked();
       go('booked');
     }
   });
