@@ -142,6 +142,19 @@ window.PAGE_CONFIG = {
   PAY_URL: 'https://rzp.io/rzp/google-pixel'
 };
 </script>
+<!-- Microsoft Ads UET: loads only for Microsoft Ads visitors (msclkid / utm_source=bing) -->
+<script>
+(function(){
+  var isMs = false;
+  try{
+    var q = location.search || '';
+    isMs = /[?&]msclkid=/.test(q) || /[?&]utm_source=bing/i.test(q);
+    if(isMs) sessionStorage.setItem('ms_visitor','1'); else isMs = sessionStorage.getItem('ms_visitor') === '1';
+  }catch(e){}
+  if(!isMs) return;
+  (function(w,d,t,u,o){w[u]=w[u]||[],o.ts=(new Date).getTime();var n=d.createElement(t); n.src="https://bat.bing.net/bat.js?ti="+o.ti+("uetq"!=u?"&q="+u:""),n.async=1, n.onload=n.onreadystatechange=function(){var s=this.readyState;s&&"loaded"!==s&&"complete"!==s||( o.q=w[u],w[u]=new UET(o),w[u].push("pageLoad"),n.onload=n.onreadystatechange=null)}; var i=d.getElementsByTagName(t)[0];i.parentNode.insertBefore(n,i); })(window,document,"script","uetq",{ti:"187233088", enableAutoSpaTracking: true});
+})();
+</script>
 </head>
 <body>
 
