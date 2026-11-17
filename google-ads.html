@@ -72,6 +72,15 @@
   /* The embed below brings its own 16:9 wrapper (inline style) */
   @media (min-width: 901px) { .vsl-video > div { border-radius: 12px; overflow: hidden; } }
 
+  /* ---------- PROOF STRIP ---------- */
+  .proof-strip { max-width: 560px; margin: 0 auto; padding: 4px 16px 18px; text-align: center; font-family: inherit; }
+  .proof-row { display: flex; gap: 8px; justify-content: center; }
+  .proof-item { flex: 1; background: #fff; border: 1px solid #ececf3; border-radius: 12px; padding: 10px 6px; }
+  .proof-item b { display: block; font-size: 19px; font-weight: 800; color: #0a0a0a; letter-spacing: -0.01em; }
+  .proof-item span { display: block; font-size: 11px; line-height: 1.3; color: #555; margin-top: 2px; }
+  .proof-note { font-size: 11px; color: #888; margin: 8px 0 0; }
+  @media (min-width: 640px) { .proof-item b { font-size: 22px; } .proof-item span { font-size: 12px; } }
+
   /* ---------- QUIZ WRAPPER ---------- */
   .quiz-section { padding: 8px 16px 64px; }
   /* Quiz stays hidden until the visitor clicks the button below the video */
@@ -258,6 +267,16 @@
     <h1>We only get paid when your Google Ads actually deliver.</h1>
     <div class="agitate">Clicks coming in, money going out, customers not showing up. <b>We turn that around. We only earn when you do.</b></div>
   </div>
+</section>
+
+<!-- ============ PROOF ============ -->
+<section class="proof-strip">
+  <div class="proof-row">
+    <div class="proof-item"><b>₹2.8 Cr+</b><span>Google Ads spend managed (~$300K+)</span></div>
+    <div class="proof-item"><b>5.7x</b><span>reported return on ad spend, e-commerce accounts</span></div>
+    <div class="proof-item"><b>6</b><span>accounts across D2C and lead gen</span></div>
+  </div>
+  <p class="proof-note">Figures from Google Ads accounts we manage, all-time to May 2026.</p>
 </section>
 
 <!-- ============ QUIZ ============ -->
