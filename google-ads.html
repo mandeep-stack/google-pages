@@ -185,6 +185,10 @@
 .acf-ccsel { border: none; border-bottom: 2px solid #d0cdc7; background: transparent; padding: 10px 0; font-size: 16px; font-family: inherit; color: #1a1a1a; outline: none; max-width: 150px; flex-shrink: 0; cursor: pointer; border-radius: 0; }
 .acf-ccsel:focus { border-bottom-color: #4b3ff0; }
 
+select.acf-finp { -webkit-appearance: none; appearance: none; cursor: pointer; border-radius: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%239aa1ad' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 4px center; padding-right: 24px; }
+select.acf-finp.acf-empty { color: #c7cbd3; }
+select.acf-finp option { color: #1a1a1a; }
+
 .acf-btn {
   display: inline-flex; align-items: center; gap: 10px; padding: 13px 28px; background: #1a1a1a; color: #fff;
   border: none; border-radius: 8px; font-size: 15px; font-weight: 500; font-family: inherit; cursor: pointer;
@@ -301,6 +305,18 @@
           <div>
             <label class="acf-flabel">Email *</label>
             <input type="email" class="acf-finp" id="ai-email" placeholder="name@example.com" oninput="acfClr(0)" onkeydown="if(event.key==='Enter'){event.preventDefault();acfNext()}">
+          </div>
+          <div>
+            <label class="acf-flabel">Best way to reach you *</label>
+            <select class="acf-finp acf-empty" id="ai-cm" onchange="acfCm()">
+              <option value="" selected disabled>Choose one</option>
+              <option value="WhatsApp">WhatsApp</option>
+              <option value="Signal">Signal</option>
+              <option value="Telegram">Telegram</option>
+              <option value="Email">Email</option>
+              <option value="Any other">Any other</option>
+            </select>
+            <input type="text" class="acf-finp" id="ai-cm-other" placeholder="How should we reach you?" oninput="acfClr(0)" style="display:none;margin-top:14px">
           </div>
         </div>
         <div class="acf-err" id="ae-0"></div>
@@ -570,6 +586,9 @@
       if(!nm) return 'Please enter your name.';
       if(!ph||ph.length<7) return 'Please enter a valid phone number.';
       if(!em||em.indexOf('@')<0) return 'Please enter a valid email.';
+      var cm = document.getElementById('ai-cm').value;
+      if(!cm) return 'Please choose the best way to reach you.';
+      if(cm==='Any other' && !(document.getElementById('ai-cm-other').value||'').trim()) return 'Please tell us how to reach you.';
     }
     if([1,3,4,5,6].indexOf(i) > -1 && !ans[i]) return 'Please choose an option to continue.';
     if(i===2){
@@ -585,11 +604,21 @@
       var cc = (document.getElementById('ai-cc').value||'').trim();
       ans.phone = (cc ? cc+' ' : '')+(document.getElementById('ai-phone').value||'').trim();
       ans.email = (document.getElementById('ai-email').value||'').trim();
+      ans.cm    = document.getElementById('ai-cm').value;
+      ans.cmo   = ans.cm==='Any other' ? (document.getElementById('ai-cm-other').value||'').trim() : '';
     }
     if(i===2) ans[2] = normaliseUrl(document.getElementById('ai-2').value||'');
   }
 
   function showErr(i,m){ var e=document.getElementById('ae-'+i); if(e) e.textContent=m; }
+  window.acfCm = function(){
+    var sel = document.getElementById('ai-cm'), oth = document.getElementById('ai-cm-other');
+    sel.classList.toggle('acf-empty', !sel.value);
+    oth.style.display = (sel.value==='Any other') ? 'block' : 'none';
+    acfClr(0);
+    var st = document.getElementById('acf-stage'), act = document.querySelector('.acf-slide.acf-active');
+    if(st && act) st.style.height = act.offsetHeight + 'px';
+  };
   window.acfClr = function(i){ var e=document.getElementById('ae-'+i); if(e) e.textContent=''; };
 
   window.acfNext = function(){
@@ -645,7 +674,9 @@
       stage:     'contact_info',
       name:      ans.name||'',
       phone:     ans.phone||'',
-      email:     ans.email||''
+      email:     ans.email||'',
+      contact_method:       ans.cm||'',
+      contact_method_other: ans.cmo||''
     });
 
     fetch(SHEET_URL, {
@@ -670,6 +701,18 @@
     try{ gtag('event', 'conversion', { send_to: CONV_SEND_TO }); }catch(e){}
   }
 
+  // Call booked: same event name as the main VSL (discovery_call_booked), fired on this page.
+  // Create a second conversion action ("Booked call") in Google Ads and paste its label below.
+  var BOOKED_SEND_TO = 'AW-319782139/REPLACE_WITH_BOOKED_CONVERSION_LABEL';
+  function fireBooked(){
+    if(window.__bookedFired) return;
+    window.__bookedFired = true;
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({ event: 'discovery_call_booked', variant: VARIANT });
+    if(BOOKED_SEND_TO.indexOf('REPLACE_') > -1) return;
+    try{ gtag('event', 'conversion', { send_to: BOOKED_SEND_TO }); }catch(e){}
+  }
+
   function sendData(){
     fireConversion();
     var payload = withTracking({
@@ -682,7 +725,9 @@
       decision_maker: ans[6]||'',
       name:           ans.name||'',
       phone:          ans.phone||'',
-      email:          ans.email||''
+      email:          ans.email||'',
+      contact_method:       ans.cm||'',
+      contact_method_other: ans.cmo||''
     });
 
     var ov = document.getElementById('acf-sending');
@@ -726,6 +771,7 @@
       (typeof d === 'string' && d.indexOf('booking') > -1 && d.indexOf('confirm') > -1)
     );
     if(isBooked){
+      fireBooked();
       go('booked');
     }
   });
