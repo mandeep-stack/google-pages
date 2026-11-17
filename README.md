@@ -7,6 +7,7 @@ One campaign, two ad groups, one conversion (the thank-you page).
 | `/speed` | `speed.html` | Speed | Successful ₹199 payment → `/thankyou?src=speed&pid=…` (value 199) |
 | `/pixel` | `pixel.html` | Pixel | Successful ₹99 payment → `/thankyou?src=pixel` (value 99) |
 | `/thankyou` | `thankyou.html` | — | Fires the single Google Ads conversion + TidyCal booking embed |
+| `/google-ads` | `google-ads.html` | Pay-on-result VSL | Quiz completed → one Google Ads lead conversion (set `CONV_SEND_TO` in the page; new label needed) |
 
 These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM).
 
@@ -32,3 +33,9 @@ These are copies of the Meta pages with all Meta code removed (pixel, CAPI, GTM)
 
 ## Score check
 The live score check calls `GET /pagespeed` on the audit worker (`docs/audit-worker-with-pagespeed.js`). Add the secret `PAGESPEED_API_KEY` to that worker. This Cloudflare project is static-assets-only, so it cannot hold variables.
+
+
+## /google-ads (pay-on-result VSL)
+- Worldwide audience: country-code selector, USD spend options, "Lead gen / services" platform option.
+- Google tag only (`AW-319782139`), no Meta, no GTM. Leads go to the Sheet + Pabbly with `variant=google-ads` (filter this in Pabbly so it never reaches Meta CAPI).
+- TODO before launch: paste the VSL embed (placeholder block in the page) and the lead conversion label (`CONV_SEND_TO`).
