@@ -212,6 +212,7 @@
 
 .acf-cal-slide { padding: 48px 0 0; justify-content: flex-start; min-height: unset; }
 .acf-cal-head { padding: 0 40px 24px; max-width: 580px; width: 100%; margin: 0 auto; }
+.acf-tz { font-size: 13px; color: #9aa1ad; margin: -12px 0 0; }
 .acf-cal-clip { width: 100%; position: relative; height: 650px; }
 .acf-cal-cover { position: absolute; top: 0; left: 0; right: 0; height: 200px; background: #fff; z-index: 2; pointer-events: none; }
 .acf-cal-frame { width: 100%; height: 100%; border: none; display: block; position: absolute; top: 0; left: 0; right: 0; bottom: 0; }
@@ -313,11 +314,11 @@
       <div class="acf-box">
         <div class="acf-q"><div class="acf-num">2</div><div class="acf-qtxt">What platform do you primarily sell on?<sup>*</sup></div></div>
         <div class="acf-opts" id="ac-1">
-          <button class="acf-opt" data-v="Shopify / WordPress" onclick="acfPick(1,this)"><span class="acf-ltr">A</span>Shopify / WordPress</button>
+          <button class="acf-opt" data-v="Shopify / WooCommerce / WordPress" onclick="acfPick(1,this)"><span class="acf-ltr">A</span>Shopify / WooCommerce / WordPress</button>
           <button class="acf-opt" data-v="Amazon / Marketplaces" onclick="acfPick(1,this)"><span class="acf-ltr">B</span>Amazon / Marketplaces</button>
-          <button class="acf-opt" data-v="Blinkit / Instamart / Zepto" onclick="acfPick(1,this)"><span class="acf-ltr">C</span>Blinkit / Instamart / Zepto</button>
-          <button class="acf-opt" data-v="Multiple" onclick="acfPick(1,this)"><span class="acf-ltr">D</span>Multiple</button>
-          <button class="acf-opt" data-v="Lead gen / services" onclick="acfPick(1,this)"><span class="acf-ltr">E</span>Lead gen / services</button>
+          <button class="acf-opt" data-v="Other e-commerce platform" onclick="acfPick(1,this)"><span class="acf-ltr">C</span>Other e-commerce platform</button>
+          <button class="acf-opt" data-v="Lead gen / services" onclick="acfPick(1,this)"><span class="acf-ltr">D</span>Lead gen / services</button>
+          <button class="acf-opt" data-v="Multiple" onclick="acfPick(1,this)"><span class="acf-ltr">E</span>Multiple</button>
         </div>
         <div class="acf-err" id="ae-1"></div>
         <button class="acf-btn" onclick="acfNext()">OK <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="8" x2="13" y2="8"></line><polyline points="9,4 13,8 9,12"></polyline></svg></button>
@@ -328,9 +329,9 @@
     <!-- Q3 -->
     <div class="acf-slide" data-i="2">
       <div class="acf-box">
-        <div class="acf-q"><div class="acf-num">3</div><div class="acf-qtxt">What is your website / store URL?<sup>*</sup></div></div>
+        <div class="acf-q"><div class="acf-num">3</div><div class="acf-qtxt">What is your website URL?<sup>*</sup></div></div>
         <div class="acf-inp-wrap">
-          <input type="text" class="acf-inp" id="ai-2" placeholder="adcomp.xyz" oninput="acfClr(2)" onkeydown="if(event.key==='Enter'){event.preventDefault();acfNext()}">
+          <input type="text" class="acf-inp" id="ai-2" placeholder="yourbrand.com" oninput="acfClr(2)" onkeydown="if(event.key==='Enter'){event.preventDefault();acfNext()}">
         </div>
         <div class="acf-err" id="ae-2"></div>
         <button class="acf-btn" onclick="acfNext()">OK <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="8" x2="13" y2="8"></line><polyline points="9,4 13,8 9,12"></polyline></svg></button>
@@ -360,7 +361,7 @@
       <div class="acf-box">
         <div class="acf-q"><div class="acf-num">5</div><div class="acf-qtxt">What's your biggest challenge right now?<sup>*</sup></div></div>
         <div class="acf-opts" id="ac-4">
-          <button class="acf-opt" data-v="Scaling ad spend without killing ROAS" onclick="acfPick(4,this)"><span class="acf-ltr">A</span>Scaling ad spend without killing ROAS</button>
+          <button class="acf-opt" data-v="Scaling ad spend without killing ROAS" onclick="acfPick(4,this)"><span class="acf-ltr">A</span>Scaling ad spend without losing ROAS or lead quality</button>
           <button class="acf-opt" data-v="Plateaued revenue" onclick="acfPick(4,this)"><span class="acf-ltr">B</span>Plateaued revenue</button>
           <button class="acf-opt" data-v="Poor margins despite growth" onclick="acfPick(4,this)"><span class="acf-ltr">C</span>Poor margins despite growth</button>
           <button class="acf-opt" data-v="Don't have a clear growth system" onclick="acfPick(4,this)"><span class="acf-ltr">D</span>Don't have a clear growth system</button>
@@ -405,6 +406,7 @@
     <div class="acf-slide acf-cal-slide" data-i="7">
       <div class="acf-cal-head">
         <div class="acf-q"><div class="acf-num">8</div><div class="acf-qtxt">Please book a slot for your Google Meet call</div></div>
+        <div class="acf-tz">Times are shown in your local time zone.</div>
       </div>
       <div class="acf-cal-clip">
         <div class="acf-cal-cover" id="acf-cal-cover"></div>
@@ -476,6 +478,9 @@
     });
     t.page_url = window.location.href;
     t.variant = VARIANT;
+    try{ t.timezone = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; }catch(e){ t.timezone = ''; }
+    var csel = document.getElementById('ai-cc');
+    t.country = (csel && csel.options[csel.selectedIndex]) ? (csel.options[csel.selectedIndex].getAttribute('data-r') || '') : '';
     return t;
   }
   function withTracking(p){
