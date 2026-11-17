@@ -611,12 +611,22 @@
   function showErr(i,m){ var e=document.getElementById('ae-'+i); if(e) e.textContent=m; }
   window.acfClr = function(i){ var e=document.getElementById('ae-'+i); if(e) e.textContent=''; };
 
+  // Basic info (name, phone, email) completed -> Google Ads conversion + GA-style event
+  var BASIC_SEND_TO = 'AW-319782139/ySZbCOqFiLodEPv5vZgB';
+  function fireBasicInfo(){
+    if(window.__basicFired) return;
+    window.__basicFired = true;
+    try{ gtag('event', 'conversion', { send_to: BASIC_SEND_TO, value: 1.0, currency: 'INR' }); }catch(e){}
+    try{ gtag('event', 'google_ads_basic_info'); }catch(e){}
+  }
+
   window.acfNext = function(){
     if(animating) return;
     var err = validate(cur);
     if(err){ showErr(cur,err); return; }
     acfClr(cur); collect(cur);
     if(cur===0){
+      fireBasicInfo();
       sendContact();
       go(1);
       return;
