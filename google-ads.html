@@ -294,7 +294,7 @@
           <div>
             <label class="acf-flabel">Phone number *</label>
             <div class="acf-phone-row">
-              <select class="acf-ccsel" id="ai-cc" aria-label="Country code"><option value="+1" data-r="US">🇺🇸 +1 United States</option><option value="+44" data-r="GB">🇬🇧 +44 United Kingdom</option><option value="+1" data-r="CA">🇨🇦 +1 Canada</option><option value="+61" data-r="AU">🇦🇺 +61 Australia</option><option value="+91" data-r="IN" selected>🇮🇳 +91 India</option><option value="+971" data-r="AE">🇦🇪 +971 UAE</option><option value="+65" data-r="SG">🇸🇬 +65 Singapore</option><option value="+49" data-r="DE">🇩🇪 +49 Germany</option><option value="+33" data-r="FR">🇫🇷 +33 France</option><option value="+31" data-r="NL">🇳🇱 +31 Netherlands</option><option value="+353" data-r="IE">🇮🇪 +353 Ireland</option><option value="+64" data-r="NZ">🇳🇿 +64 New Zealand</option><option value="+27" data-r="ZA">🇿🇦 +27 South Africa</option><option value="+966" data-r="SA">🇸🇦 +966 Saudi Arabia</option><option value="+974" data-r="QA">🇶🇦 +974 Qatar</option><option value="+60" data-r="MY">🇲🇾 +60 Malaysia</option><option value="+63" data-r="PH">🇵🇭 +63 Philippines</option><option value="+62" data-r="ID">🇮🇩 +62 Indonesia</option><option value="+234" data-r="NG">🇳🇬 +234 Nigeria</option><option value="+254" data-r="KE">🇰🇪 +254 Kenya</option><option value="+55" data-r="BR">🇧🇷 +55 Brazil</option><option value="+52" data-r="MX">🇲🇽 +52 Mexico</option><option value="+34" data-r="ES">🇪🇸 +34 Spain</option><option value="+39" data-r="IT">🇮🇹 +39 Italy</option><option value="+46" data-r="SE">🇸🇪 +46 Sweden</option><option value="+41" data-r="CH">🇨🇭 +41 Switzerland</option><option value="" data-r="">🌐 Other (type full number with code)</option></select>
+              <select class="acf-ccsel" id="ai-cc" aria-label="Country code"><option value="+1" data-r="US" title="United States">🇺🇸 +1 US</option><option value="+44" data-r="GB" title="United Kingdom">🇬🇧 +44 GB</option><option value="+1" data-r="CA" title="Canada">🇨🇦 +1 CA</option><option value="+61" data-r="AU" title="Australia">🇦🇺 +61 AU</option><option value="+91" data-r="IN" selected title="India">🇮🇳 +91 IN</option><option value="+971" data-r="AE" title="UAE">🇦🇪 +971 AE</option><option value="+65" data-r="SG" title="Singapore">🇸🇬 +65 SG</option><option value="+49" data-r="DE" title="Germany">🇩🇪 +49 DE</option><option value="+33" data-r="FR" title="France">🇫🇷 +33 FR</option><option value="+31" data-r="NL" title="Netherlands">🇳🇱 +31 NL</option><option value="+353" data-r="IE" title="Ireland">🇮🇪 +353 IE</option><option value="+64" data-r="NZ" title="New Zealand">🇳🇿 +64 NZ</option><option value="+27" data-r="ZA" title="South Africa">🇿🇦 +27 ZA</option><option value="+966" data-r="SA" title="Saudi Arabia">🇸🇦 +966 SA</option><option value="+974" data-r="QA" title="Qatar">🇶🇦 +974 QA</option><option value="+60" data-r="MY" title="Malaysia">🇲🇾 +60 MY</option><option value="+63" data-r="PH" title="Philippines">🇵🇭 +63 PH</option><option value="+62" data-r="ID" title="Indonesia">🇮🇩 +62 ID</option><option value="+234" data-r="NG" title="Nigeria">🇳🇬 +234 NG</option><option value="+254" data-r="KE" title="Kenya">🇰🇪 +254 KE</option><option value="+55" data-r="BR" title="Brazil">🇧🇷 +55 BR</option><option value="+52" data-r="MX" title="Mexico">🇲🇽 +52 MX</option><option value="+34" data-r="ES" title="Spain">🇪🇸 +34 ES</option><option value="+39" data-r="IT" title="Italy">🇮🇹 +39 IT</option><option value="+46" data-r="SE" title="Sweden">🇸🇪 +46 SE</option><option value="+41" data-r="CH" title="Switzerland">🇨🇭 +41 CH</option><option value="" data-r="" title="Other country: type the full number with country code">🌐 Other</option></select>
               <input type="tel" class="acf-finp" id="ai-phone" placeholder="Phone number" oninput="acfClr(0)" style="flex:1">
             </div>
           </div>
@@ -745,6 +745,13 @@
     var sel = document.getElementById('ai-cc');
     if(reg && sel){ for(var oi=0; oi<sel.options.length; oi++){ if(sel.options[oi].getAttribute('data-r') === reg){ sel.selectedIndex = oi; break; } } }
   }catch(e){}
+
+  var ccSel = document.getElementById('ai-cc'), phInp = document.getElementById('ai-phone');
+  if(ccSel && phInp){
+    ccSel.addEventListener('change', function(){
+      phInp.placeholder = ccSel.value ? 'Phone number' : '+ country code and number';
+    });
+  }
 
   buildSteps();
   updateSteps(0);
