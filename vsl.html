@@ -707,7 +707,14 @@
       (typeof d === 'string' && d.indexOf('booking') > -1 && d.indexOf('confirm') > -1)
     );
     if(isBooked){
-      go('booked');
+      // Booking confirmed -> thank-you page (UTMs / click ids carried along)
+      var carry = new URLSearchParams();
+      ['utm_source','utm_medium','utm_campaign','utm_content','utm_term','gclid','msclkid'].forEach(function(k){
+        var v = ''; try{ v = sessionStorage.getItem('acf_'+k) || ''; }catch(e){}
+        if(v) carry.set(k, v);
+      });
+      var qs = carry.toString();
+      window.location.href = '/vsl-thankyou' + (qs ? '?' + qs : '');
     }
   });
 
