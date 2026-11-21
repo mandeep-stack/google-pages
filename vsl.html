@@ -699,7 +699,10 @@
   window.addEventListener('message', function(e){
     if(!e.data) return;
     var d = e.data;
+    var raw = ''; try{ raw = (typeof d === 'string') ? d : JSON.stringify(d); }catch(err){}
+    var fromCal = /(^https:\/\/([a-z0-9-]+\.)?cal\.(eu|com)$)/i.test(e.origin || '');
     var isBooked = (
+      (fromCal && /bookingSuccessful/i.test(raw)) ||
       d === 'booking_confirmed' ||
       d.type === 'booking_confirmed' ||
       d.type === 'cal:booking_confirmed' ||
