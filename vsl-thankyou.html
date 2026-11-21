@@ -5,6 +5,27 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Thank you | AdComp</title>
 <meta name="robots" content="noindex, nofollow">
+<!-- Google tag (Google Ads AW-319782139) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-319782139"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-319782139');
+
+  // Event snippet for VSL ThankYou Page conversion (fires once per visit, so a refresh does not double count)
+  (function(){
+    var done = false;
+    try{ done = sessionStorage.getItem('vsl_ty_conv') === '1'; }catch(e){}
+    if(done) return;
+    try{ sessionStorage.setItem('vsl_ty_conv', '1'); }catch(e){}
+    gtag('event', 'conversion', {
+        'send_to': 'AW-319782139/V706CPrbx7wdEPv5vZgB',
+        'value': 1.0,
+        'currency': 'INR'
+    });
+  })();
+</script>
 <style>
   html, body { margin: 0; padding: 0; }
   body {
