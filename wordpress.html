@@ -1,0 +1,293 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WordPress websites built, fixed and managed | AdComp</title>
+<meta name="description" content="Build a new WordPress or WooCommerce website, fix a slow one, or have it managed every month.">
+<meta name="robots" content="noindex, nofollow">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--ink:#111110;--ink2:#4A4A48;--ink3:#76766F;--bg:#F7F6F3;--surface:#fff;--border:#E5E4E0;--green:#117F5D;--green-bg:#EBF8F3;--green-border:#A8E6D0;--red:#C23030;--r:12px}
+html{scroll-behavior:smooth}
+body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+.wrap{max-width:760px;margin:0 auto;padding:0 20px}
+nav.wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:6px}
+.logo{font-weight:800;font-size:17px}.logo span{font-weight:500;color:var(--ink3)}
+section{padding-top:52px;scroll-margin-top:8px}
+.hero{padding-top:34px}
+.badge{display:inline-block;font-size:12px;font-weight:600;color:var(--green);background:var(--green-bg);border:1px solid var(--green-border);border-radius:99px;padding:5px 13px;margin-bottom:20px}
+h1{font-size:clamp(32px,7vw,54px);font-weight:900;line-height:1.08;letter-spacing:-.03em;margin-bottom:16px}
+h2{font-size:clamp(23px,4.5vw,32px);font-weight:800;line-height:1.2;letter-spacing:-.02em;margin-bottom:18px}
+.sub{font-size:17px;color:var(--ink2);max-width:560px}
+.eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
+/* services */
+.cards{display:grid;gap:10px;margin-top:26px}
+.card{display:flex;flex-direction:column;text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;font:inherit;color:inherit;cursor:pointer;transition:border-color .2s}
+.card:hover,.card[aria-pressed=true]{border-color:var(--ink)}
+.card b{font-size:17px;line-height:1.3;margin-bottom:6px}
+.card p{font-size:13.5px;color:var(--ink2);line-height:1.55}
+.card .price{margin-top:12px;font-size:13px;font-weight:700}
+.card .go{margin-top:10px;font-size:13px;font-weight:700;color:var(--green)}
+@media(min-width:660px){.cards{grid-template-columns:repeat(3,1fr)}.card .go{margin-top:auto;padding-top:14px}}
+/* work */
+.work{display:grid;gap:12px}
+@media(min-width:560px){.work{grid-template-columns:1fr 1fr}}
+.site{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);overflow:hidden}
+.site img{display:block;width:100%;height:auto;border-bottom:1px solid var(--border)}
+.site div{padding:12px 14px}.site b{display:block;font-size:14px;overflow-wrap:anywhere}.site small{font-size:12.5px;color:var(--ink2)}
+/* videos */
+.stage{position:relative;aspect-ratio:16/9;background:var(--ink);border-radius:var(--r);overflow:hidden}
+.stage iframe,.stage img,.stage button{position:absolute;inset:0;width:100%;height:100%;border:0}
+.stage img{object-fit:cover}.stage button{background:none;cursor:pointer;padding:0}
+.play{position:absolute;left:50%;top:50%;width:60px;height:60px;margin:-30px;border-radius:50%;background:#fff}
+.play::after{content:"";position:absolute;left:23px;top:18px;border-style:solid;border-width:12px 0 12px 19px;border-color:transparent transparent transparent var(--ink)}
+.thumbs{display:flex;gap:8px;overflow-x:auto;padding:10px 0 4px}
+.thumbs button{flex:0 0 108px;aspect-ratio:16/9;border:2px solid transparent;border-radius:8px;background:var(--ink);color:#fff;font:600 11px Inter,sans-serif;cursor:pointer;position:relative;overflow:hidden}
+.thumbs img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.thumbs button[aria-current=true]{border-color:var(--green)}
+/* steps */
+.steps{list-style:none;display:grid;gap:10px;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:16px}
+.steps li::before{content:counter(s);flex:0 0 28px;height:28px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-size:13px;font-weight:700}
+.steps b{display:block;font-size:15px}.steps span{font-size:13.5px;color:var(--ink2)}
+/* form */
+.box{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:24px 20px}
+fieldset{border:0;margin-bottom:20px}
+legend,label.f{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chips label{cursor:pointer}
+.chips input{position:absolute;opacity:0}
+.chips span{display:block;border:1.5px solid var(--border);border-radius:99px;padding:9px 15px;font-size:14px;font-weight:500}
+.chips input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
+.chips input:focus-visible+span{outline:3px solid var(--green);outline-offset:2px}
+.field{margin-bottom:18px}
+.field input{width:100%;border:1.5px solid var(--border);border-radius:8px;padding:12px 14px;font:inherit;font-size:16px;background:var(--bg);outline:none}
+.field input:focus{border-color:var(--ink)}
+.phone{display:flex;gap:8px;align-items:center}.phone i{font-style:normal;font-weight:600}
+.two{display:grid;gap:0 12px}@media(min-width:560px){.two{grid-template-columns:1fr 1fr}}
+.btn{display:block;width:100%;background:var(--ink);color:#fff;border:0;border-radius:10px;padding:15px 20px;font:700 16px Inter,sans-serif;text-align:center;text-decoration:none;cursor:pointer}
+.btn:disabled{opacity:.5}
+.note{font-size:12.5px;color:var(--ink3);text-align:center;margin-top:10px}
+.err{color:var(--red);font-size:13px;font-weight:600;min-height:20px;margin-bottom:6px}
+.done{display:none;text-align:center}.done p{color:var(--ink2);margin-bottom:18px}
+details{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:14px 16px;margin-bottom:8px}
+summary{font-weight:700;font-size:14.5px;cursor:pointer}details p{font-size:14px;color:var(--ink2);margin-top:8px}
+footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
+.bar{position:fixed;left:0;right:0;bottom:0;background:var(--ink);padding:12px 20px;transition:transform .25s;z-index:5}
+.bar.off{transform:translateY(100%)}
+.bar a{max-width:420px;margin:0 auto;background:#fff;color:var(--ink);padding:12px}
+</style>
+</head>
+<body>
+
+<nav class="wrap"><div class="logo">AdComp<span> Digital Studio</span></div></nav>
+
+<main class="wrap">
+  <section class="hero">
+    <div class="badge">For WordPress and WooCommerce businesses</div>
+    <h1>WordPress websites:<br>built, fixed and managed.</h1>
+    <p class="sub">A new website that is quick from day one, a repair for the slow one you have, or monthly care so you never have to think about it. Choose what you need.</p>
+    <div class="cards">
+      <button type="button" class="card" data-s="build" aria-pressed="false">
+        <b>Build a new website</b>
+        <p>Business sites and WooCommerce stores, designed for mobile and set up for speed.</p>
+        <span class="price">Custom quote</span>
+        <span class="go">Get a quote &rarr;</span>
+      </button>
+      <button type="button" class="card" data-s="fix" aria-pressed="false">
+        <b>Fix a slow website</b>
+        <p>90+ PageSpeed on desktop in 5 business days, or a full refund.</p>
+        <span class="price">₹4,999 one time</span>
+        <span class="go">Fix my site &rarr;</span>
+      </button>
+      <button type="button" class="card" data-s="manage" aria-pressed="false">
+        <b>Manage my website</b>
+        <p>Security, updates, backups and monitoring handled every month.</p>
+        <span class="price">₹15,000/month</span>
+        <span class="go">Hand it over &rarr;</span>
+      </button>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Websites we've built</div>
+    <h2>See the work before you talk to us.</h2>
+    <div class="work">
+      <article class="site"><img src="assets/work/adcomp.jpg" alt="Home page of adcomp.xyz" width="640" height="400" loading="lazy"><div><b>adcomp.xyz</b><small>Our own agency website</small></div></article>
+      <article class="site"><img src="assets/work/livingwaters.jpg" alt="Home page of livingwaters.co.in" width="640" height="400" loading="lazy"><div><b>livingwaters.co.in</b><small>Online store for stationery, bags and gifts</small></div></article>
+      <article class="site"><img src="assets/work/shopgulab.jpg" alt="Home page of shopgulab.com" width="640" height="400" loading="lazy"><div><b>shopgulab.com</b><small>Online store for cold-pressed oils and foods</small></div></article>
+      <article class="site"><img src="assets/work/soundkraft.jpg" alt="Home page of soundkraftdjinstitute.online" width="640" height="400" loading="lazy"><div><b>soundkraftdjinstitute.online</b><small>Landing page for 1-on-1 DJ training</small></div></article>
+    </div>
+  </section>
+
+  <section>
+    <div class="eyebrow">Speed fix case studies</div>
+    <h2>Slow sites we've worked on.</h2>
+    <div class="stage" id="stage"></div>
+    <div class="thumbs" id="thumbs"></div>
+  </section>
+
+  <section>
+    <div class="eyebrow">How it works</div>
+    <h2>Three steps to a clear plan.</h2>
+    <ol class="steps">
+      <li><div><b>Tell us what you need</b><span>Pick a service and a budget. It takes under a minute.</span></div></li>
+      <li><div><b>Book a call</b><span>We look at your site or your brief and agree the scope.</span></div></li>
+      <li><div><b>Get a fixed quote</b><span>Price and timeline in writing before any work starts.</span></div></li>
+    </ol>
+  </section>
+
+  <section id="start">
+    <div class="box">
+      <form id="form" novalidate>
+        <h2>Tell us about your website.</h2>
+        <fieldset><legend>What do you need?</legend>
+          <div class="chips">
+            <label><input type="radio" name="service" value="build"><span>New website</span></label>
+            <label><input type="radio" name="service" value="fix"><span>Fix a slow site</span></label>
+            <label><input type="radio" name="service" value="manage"><span>Monthly management</span></label>
+          </div>
+        </fieldset>
+        <fieldset id="budgetSet" hidden><legend id="budgetLabel">Budget</legend><div class="chips" id="budget"></div></fieldset>
+        <div class="field"><label class="f" for="url" id="urlLabel">Website address</label><input id="url" inputmode="url" autocomplete="url" placeholder="yourbusiness.com"></div>
+        <div class="two">
+          <div class="field"><label class="f" for="name">Your name</label><input id="name" autocomplete="name"></div>
+          <div class="field"><label class="f" for="phone">WhatsApp number</label><div class="phone"><i>+91</i><input id="phone" type="tel" inputmode="numeric" autocomplete="tel-national" maxlength="18"></div></div>
+        </div>
+        <div class="err" id="err" role="alert"></div>
+        <button class="btn" id="send">Continue &rarr;</button>
+        <p class="note">We use these details only to contact you about your enquiry.</p>
+      </form>
+
+      <div class="done" id="thanks">
+        <h2>Thanks, we have your details.</h2>
+        <p>We'll message you on WhatsApp.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Common questions</h2>
+    <details><summary>How long does a new website take?</summary><p>Depends on the scope. You get the timeline in writing with your quote.</p></details>
+    <details><summary>Do I own the website?</summary><p>Yes. Domain, hosting account, website files, content and admin logins are yours once the project is finished and paid for.</p></details>
+    <details><summary>Can you manage a site someone else built?</summary><p>Yes, after a review. We check the site first and flag anything that needs fixing before we take it on.</p></details>
+  </section>
+
+  <footer>AdComp Digital Studio &middot; <a href="mailto:mandeep@adcomp.xyz">mandeep@adcomp.xyz</a> &middot; <a href="https://adcomp.xyz/privacy-policy/" target="_blank" rel="noopener">Privacy Policy</a></footer>
+</main>
+
+<div class="bar" id="bar"><a class="btn" href="#start">Tell us what you need &rarr;</a></div>
+
+<script>
+(function(){
+  /* ---------- CONFIG ---------- */
+  var CFG = {
+    sheetUrl: 'https://script.google.com/macros/s/AKfycbxFPiDq1b2GQKQbbOe0qa1LHHesMmbsLOCNg39QZ40OBA05EuM0rkdAprLvtmdksfA/exec',
+    webhookUrl: 'https://connect.pabbly.com/webhook-listener/webhook/IjU3NjYwNTZkMDYzNjA0M2Q1MjZlNTUzMyI_3D_pc/IjU3NjcwNTY5MDYzMTA0MzE1MjZlNTUzMDUxMzUi_pc',  // Pabbly: filter variant=wordpress so it never reaches Meta CAPI
+    thankYou: '/thankyou',  // the conversion fires there, not on this page
+    /* The first option in each list is below minimum: lead is saved, no redirect, no conversion. */
+    budgets: {
+      build:  ['Budget', ['Under ₹25,000', '₹25,000 to ₹50,000', '₹50,000 to ₹1 lakh', 'Above ₹1 lakh']],
+      fix:    ['Can you invest ₹4,999 in the fix?', ['Not right now', 'Yes']],
+      manage: ['Management is ₹15,000/month. Does that work?', ['Not right now', 'Yes']]
+    }
+  };
+  var LIVE = location.hostname === 'lp.adcomp.xyz';
+  function $(id){ return document.getElementById(id); }
+  var form = $('form');
+
+  /* Google tag loads on the live domain only, so previews never count */
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){ dataLayer.push(arguments); }
+  if(LIVE){
+    var g = document.createElement('script'); g.async = true; g.src = 'https://www.googletagmanager.com/gtag/js?id=AW-319782139'; document.head.appendChild(g);
+    gtag('js', new Date()); gtag('config', 'AW-319782139');
+  }
+
+  var qs = new URLSearchParams(location.search), track = {};
+  ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid'].forEach(function(k){ track[k] = qs.get(k) || ''; });
+
+  function setService(s){
+    var r = form.querySelector('input[name=service][value="'+s+'"]'); r.checked = true;
+    var b = CFG.budgets[s];
+    $('budgetLabel').textContent = b[0];
+    $('budget').innerHTML = b[1].map(function(t,i){ return '<label><input type="radio" name="budget" value="'+i+'"><span>'+t+'</span></label>'; }).join('');
+    $('budgetSet').hidden = false;
+    $('urlLabel').textContent = s === 'build' ? 'Current website (leave empty if none)' : 'Website address';
+    Array.prototype.forEach.call(document.querySelectorAll('.card'), function(c){ c.setAttribute('aria-pressed', String(c.dataset.s === s)); });
+    $('err').textContent = '';
+  }
+  form.addEventListener('change', function(e){ if(e.target.name === 'service') setService(e.target.value); });
+  Array.prototype.forEach.call(document.querySelectorAll('.card'), function(c){
+    c.addEventListener('click', function(){ setService(c.dataset.s); $('start').scrollIntoView(); });
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var s = (form.querySelector('input[name=service]:checked')||{}).value;
+    var b = form.querySelector('input[name=budget]:checked');
+    var url = $('url').value.trim(), name = $('name').value.trim();
+    var phone = $('phone').value.replace(/\D/g,'').replace(/^(91|0)(?=\d{10}$)/,'');
+    var msg = !s ? 'Choose what you need.' : !b ? 'Choose a budget option.' :
+      (s !== 'build' && !/\.[a-z]{2,}/i.test(url)) ? 'Enter your website address.' :
+      !name ? 'Enter your name.' : !/^[6-9]\d{9}$/.test(phone) ? 'Enter a 10-digit WhatsApp number.' : '';
+    $('err').textContent = msg;
+    if(msg) return;
+
+    var qualified = +b.value > 0;
+    var budget = CFG.budgets[s][1][+b.value];
+    var lead = { timestamp:new Date().toISOString(), variant:'wordpress', service:s, budget:budget, platform:s, ad_budget:budget, qualified:qualified, website:url, name:name, phone:'+91 '+phone, page_url:location.href };
+    for(var k in track) lead[k] = track[k];
+    [CFG.sheetUrl, CFG.webhookUrl].forEach(function(u){
+      if(u) fetch(u, { method:'POST', mode:'no-cors', keepalive:true, body:JSON.stringify(lead) }).catch(function(){});
+    });
+    $('send').disabled = true;
+    if(qualified){
+      var pid = 'wp-' + Date.now().toString(36) + Math.random().toString(36).slice(2,8);
+      /* short pause so the lead requests leave before the page changes; no personal data in the URL */
+      setTimeout(function(){ location.href = CFG.thankYou + '?src=wordpress&pid=' + pid; }, 600);
+    } else {
+      form.style.display = 'none';
+      $('thanks').style.display = 'block';
+      $('start').scrollIntoView();
+    }
+  });
+  window.addEventListener('pageshow', function(){ $('send').disabled = false; });
+
+  /* ---------- speed case-study videos (same Bunny library as /speed) ---------- */
+  var LIB = '659110', CDN = 'https://vz-7e22ccfd-0a4.b-cdn.net/';
+  var V = [
+    '32269413-44f2-4245-bfdd-fbcdfc8de95c/thumbnail_453fa36c.jpg',
+    '83e08e1a-9aa8-4492-a834-3e5878e416f8/thumbnail_571bc302.jpg',
+    '3a93a286-9aea-4bc4-b731-580024a91735/thumbnail_3bda8808.jpg',
+    '5ffbda5e-5df7-42c4-967e-d8023d598768/thumbnail_bf0373c7.jpg',
+    '4e72c9a2-4664-417c-a9a8-2232e54de809/thumbnail_ec23698c.jpg',
+    '9dd458b0-b1a0-4850-9f56-721b0474ca9d/thumbnail.jpg'
+  ];
+  var cur = 0;
+  function img(p){ return '<img src="'+CDN+p+'" alt="" loading="lazy" onerror="this.remove()">'; }
+  function show(i, auto){
+    cur = i;
+    var id = V[i].split('/')[0];
+    $('stage').innerHTML = auto
+      ? '<iframe src="https://iframe.mediadelivery.net/embed/'+LIB+'/'+id+'?autoplay=true&responsive=true" title="Case study '+(i+1)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>'
+      : img(V[i])+'<button type="button" aria-label="Play case study '+(i+1)+'"><span class="play"></span></button>';
+    Array.prototype.forEach.call($('thumbs').children, function(b,n){ b.setAttribute('aria-current', String(n === i)); });
+  }
+  $('thumbs').innerHTML = V.map(function(p,i){ return '<button type="button" aria-label="Case study '+(i+1)+'">Video '+(i+1)+img(p)+'</button>'; }).join('');
+  Array.prototype.forEach.call($('thumbs').children, function(b,i){ b.onclick = function(){ show(i, true); }; });
+  $('stage').addEventListener('click', function(e){ if(e.target.closest('button')) show(cur, true); });
+  show(0, false);
+
+  /* hide the bottom bar while the form is on screen */
+  if('IntersectionObserver' in window){
+    new IntersectionObserver(function(en){ $('bar').classList.toggle('off', en[0].isIntersecting); }).observe($('start'));
+  }
+})();
+</script>
+</body>
+</html>
