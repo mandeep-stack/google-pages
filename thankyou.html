@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Payment received — book your call | AdComp</title>
+<title>Book your call | AdComp</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
@@ -18,12 +18,12 @@
   gtag('config', 'AW-319782139');
 </script>
 
-<!-- THE ONE CONVERSION. Fires once per payment, for both /speed (src=speed) and
+<!-- THE ONE CONVERSION. Fires once per payment or lead: /speed (src=speed), /wordpress (src=wordpress) and
      /pixel (src=pixel). Replace YOUR_LABEL with the label of the conversion action. -->
 <script>
 (function(){
   var SEND_TO = 'AW-319782139/UpmeCNG0r7YdEPv5vZgB';
-  var VALUES  = { speed: 199, pixel: 99 };   // INR, matches each offer's price
+  var VALUES  = { speed: 199, pixel: 99, wordpress: 1 };   // INR; wordpress is a lead, so a nominal value
 
   var p   = new URLSearchParams(location.search);
   var src = p.get('src');
@@ -31,7 +31,7 @@
 
   // speed passes pid; Razorpay pages may append razorpay_payment_id for pixel
   var pid = p.get('pid') || p.get('razorpay_payment_id') || '';
-  if (src === 'speed' && !pid) return;   // speed always has a payment id after a real payment
+  if ((src === 'speed' || src === 'wordpress') && !pid) return;   // payment id (speed) or lead id (wordpress)
   var txn = pid || ('pixel-' + Date.now());
 
   // Fire once per payment even if the page is reloaded or reopened
@@ -65,7 +65,8 @@
 <div class="wrap">
   <div class="brand">AdComp<span> Digital Studio</span></div>
   <div class="tick" aria-hidden="true">✓</div>
-  <h1>Payment received. Now pick a time for your call.</h1>
+  <h1 id="ty-h">Payment received. Now pick a time for your call.</h1>
+  <script>if(new URLSearchParams(location.search).get('src')==='wordpress')document.getElementById('ty-h').textContent='Details received. Now pick a time for your call.';</script>
   <p class="lead">Choose a slot below. You'll get a confirmation by email as soon as you book.</p>
 
   <div class="cal">

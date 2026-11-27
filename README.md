@@ -6,6 +6,7 @@ One campaign, two ad groups, one conversion (the thank-you page).
 |---|---|---|---|
 | `/speed` | `speed.html` | Speed | Successful ₹199 payment → `/thankyou?src=speed&pid=…` (value 199) |
 | `/pixel` | `pixel.html` | Pixel | Successful ₹99 payment → `/thankyou?src=pixel` (value 99) |
+| `/wordpress` | `wordpress.html` | WordPress build / fix / manage | Qualified form → `/thankyou?src=wordpress&pid=…` (value 1). Below-minimum leads are saved but not redirected. Filter `variant=wordpress` out of Meta CAPI in Pabbly |
 | `/thankyou` | `thankyou.html` | — | Fires the single Google Ads conversion + TidyCal booking embed |
 | `/google-ads` | `google-ads.html` | Pay-on-result VSL | Quiz completed → one Google Ads lead conversion (set `CONV_SEND_TO` in the page; new label needed) |
 
