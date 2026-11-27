@@ -15,8 +15,6 @@
 html{scroll-behavior:smooth}
 body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:84px}
 .wrap{max-width:760px;margin:0 auto;padding:0 20px}
-nav.wrap{display:flex;justify-content:space-between;align-items:center;padding-top:18px;padding-bottom:6px}
-.logo{font-weight:800;font-size:17px}.logo span{font-weight:500;color:var(--ink3)}
 section{padding-top:52px;scroll-margin-top:8px}
 .hero{padding-top:34px}
 .badge{display:inline-block;font-size:12px;font-weight:600;color:var(--green);background:var(--green-bg);border:1px solid var(--green-border);border-radius:99px;padding:5px 13px;margin-bottom:20px}
@@ -26,7 +24,7 @@ h2{font-size:clamp(23px,4.5vw,32px);font-weight:800;line-height:1.2;letter-spaci
 .eyebrow{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--ink3);margin-bottom:8px}
 /* services */
 .cards{display:grid;gap:10px;margin-top:26px}
-.card{display:flex;flex-direction:column;text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;font:inherit;color:inherit;cursor:pointer;transition:border-color .2s}
+.card{display:flex;flex-direction:column;text-align:left;background:var(--surface);border:1.5px solid var(--border);border-radius:var(--r);padding:18px;font:inherit;color:inherit;cursor:pointer;transition:border-color .2s;text-decoration:none}
 .card:hover,.card[aria-pressed=true]{border-color:var(--ink)}
 .card b{font-size:17px;line-height:1.3;margin-bottom:6px}
 .card p{font-size:13.5px;color:var(--ink2);line-height:1.55}
@@ -59,7 +57,7 @@ h2{font-size:clamp(23px,4.5vw,32px);font-weight:800;line-height:1.2;letter-spaci
 fieldset{border:0;margin-bottom:20px}
 legend,label.f{display:block;font-size:13px;font-weight:700;margin-bottom:8px}
 .chips{display:flex;flex-wrap:wrap;gap:8px}
-.chips label{cursor:pointer}
+.chips label,.chips a{cursor:pointer;text-decoration:none;color:inherit}
 .chips input{position:absolute;opacity:0}
 .chips span{display:block;border:1.5px solid var(--border);border-radius:99px;padding:9px 15px;font-size:14px;font-weight:500}
 .chips input:checked+span{background:var(--ink);border-color:var(--ink);color:#fff}
@@ -84,8 +82,6 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
 </head>
 <body>
 
-<nav class="wrap"><div class="logo">AdComp<span> Digital Studio</span></div></nav>
-
 <main class="wrap">
   <section class="hero">
     <div class="badge">For WordPress and WooCommerce businesses</div>
@@ -98,12 +94,12 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
         <span class="price">Custom quote</span>
         <span class="go">Get a quote &rarr;</span>
       </button>
-      <button type="button" class="card" data-s="fix" aria-pressed="false">
+      <a class="card to-speed" href="/speed">
         <b>Fix a slow website</b>
         <p>90+ PageSpeed on desktop in 5 business days, or a full refund.</p>
         <span class="price">₹4,999 one time</span>
         <span class="go">Fix my site &rarr;</span>
-      </button>
+      </a>
       <button type="button" class="card" data-s="manage" aria-pressed="false">
         <b>Manage my website</b>
         <p>Security, updates, backups and monitoring handled every month.</p>
@@ -148,7 +144,7 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
         <fieldset><legend>What do you need?</legend>
           <div class="chips">
             <label><input type="radio" name="service" value="build"><span>New website</span></label>
-            <label><input type="radio" name="service" value="fix"><span>Fix a slow site</span></label>
+            <a class="to-speed" href="/speed"><span>Fix a slow site &rarr;</span></a>
             <label><input type="radio" name="service" value="manage"><span>Monthly management</span></label>
           </div>
         </fieldset>
@@ -192,7 +188,6 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
     /* The first option in each list is below minimum: lead is saved, no redirect, no conversion. */
     budgets: {
       build:  ['Budget', ['Under ₹25,000', '₹25,000 to ₹50,000', '₹50,000 to ₹1 lakh', 'Above ₹1 lakh']],
-      fix:    ['Can you invest ₹4,999 in the fix?', ['Not right now', 'Yes']],
       manage: ['Management is ₹15,000/month. Does that work?', ['Not right now', 'Yes']]
     }
   };
@@ -211,6 +206,9 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
   var qs = new URLSearchParams(location.search), track = {};
   ['utm_source','utm_medium','utm_campaign','utm_term','utm_content','gclid','gbraid','wbraid'].forEach(function(k){ track[k] = qs.get(k) || ''; });
 
+  /* keep gclid and UTMs when sending speed-fix visitors to /speed */
+  Array.prototype.forEach.call(document.querySelectorAll('.to-speed'), function(a){ a.href = '/speed' + location.search; });
+
   function setService(s){
     var r = form.querySelector('input[name=service][value="'+s+'"]'); r.checked = true;
     var b = CFG.budgets[s];
@@ -218,11 +216,11 @@ footer{font-size:12.5px;color:var(--ink3);padding-top:44px}
     $('budget').innerHTML = b[1].map(function(t,i){ return '<label><input type="radio" name="budget" value="'+i+'"><span>'+t+'</span></label>'; }).join('');
     $('budgetSet').hidden = false;
     $('urlLabel').textContent = s === 'build' ? 'Current website (leave empty if none)' : 'Website address';
-    Array.prototype.forEach.call(document.querySelectorAll('.card'), function(c){ c.setAttribute('aria-pressed', String(c.dataset.s === s)); });
+    Array.prototype.forEach.call(document.querySelectorAll('button.card'), function(c){ c.setAttribute('aria-pressed', String(c.dataset.s === s)); });
     $('err').textContent = '';
   }
   form.addEventListener('change', function(e){ if(e.target.name === 'service') setService(e.target.value); });
-  Array.prototype.forEach.call(document.querySelectorAll('.card'), function(c){
+  Array.prototype.forEach.call(document.querySelectorAll('button.card'), function(c){
     c.addEventListener('click', function(){ setService(c.dataset.s); $('start').scrollIntoView(); });
   });
 
